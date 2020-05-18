@@ -4,12 +4,18 @@
 
     <appender name="stash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <destination>localhost:5000</destination>
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeMdcKeyName>method</includeMdcKeyName>
+            <includeMdcKeyName>uri</includeMdcKeyName>
+        </encoder>
     </appender>
+
+    <logger name="br.com.higor.elkstack.interceptor.LogInterceptor">
+        <appender-ref ref="stash" />
+    </logger>
 
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="stash"/>
     </root>
 
 </configuration>
